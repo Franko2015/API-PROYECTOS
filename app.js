@@ -1,13 +1,22 @@
-const express = require('express');
+import express from "express";
+import cors from "cors";
+import { Proyecto } from './src/routes/proyecto.route.js';
+
 const app = express();
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT || 3000;
 
-app.use(express.static('public'))
+app.use(cors());
+app.use(express.json());
+app.set("json spaces", 2);
 
-app.get('*', (req, res) => {
-    res.redirect('/');
-})
+// Mounting Proyecto route at /proyecto
+app.use("/api", Proyecto);
 
+app.get('/', (req, res) => {
+  res.send("Hola");
+});
+
+// Starting the server
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-})
+  console.log(`Servidor abierto en el puerto: ${port}`);
+});
