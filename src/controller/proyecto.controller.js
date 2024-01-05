@@ -11,7 +11,7 @@ export const pool = new Pool({
 export const getAll = async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM proyectos');
-      res.json(result);
+      res.json(result.rows);
     } catch (error) {
       console.error('Error executing query:', error);
       res.status(500).json({ error: 'Internal Server Error' });
