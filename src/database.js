@@ -1,12 +1,10 @@
-import { createPool } from "mysql2/promise";
+import pg from 'pg';
+const { Pool } = pg;
+
 import { config } from "dotenv";
 config();
 
-export const pool = createPool({
-    host: process.env.PGHOST,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    port: process.env.PGPORT,
-    database: process.env.PGDATABASE,
-    uri: process.env.DATABASE_URL
+export const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
   });
+

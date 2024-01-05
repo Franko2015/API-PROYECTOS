@@ -1,4 +1,5 @@
 import express from "express";
+import morgan from "morgan";
 import cors from "cors";
 import { Proyecto } from './src/routes/proyecto.route.js';
 
@@ -6,15 +7,13 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
 app.set("json spaces", 2);
 
 // Mounting Proyecto route at /proyecto
 app.use("/api", Proyecto);
-
-app.get('/', (req, res) => {
-  res.send("Hola");
-});
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Starting the server
 app.listen(port, () => {
